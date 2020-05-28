@@ -4,11 +4,12 @@ from datetime import datetime
 # variable for time format
 
 # changes the working directory to Notes in icloud
-os.chdir('/Users/aduckworth/icloud/Notes')
+# os.chdir('/Users/aduckworth/icloud/Notes')
 
 # user input to define variables for tags
 begin_tag = input("What is the beginning tag? > ")
-end_tag = input("What is the ending tag? > ")
+con_tag = "E"
+end_tag = con_tag + begin_tag
 
 # user input to define variable for file to open
 file_to_open = input("What file do you want to open? > ")
