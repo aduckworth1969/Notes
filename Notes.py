@@ -3,8 +3,10 @@ from datetime import datetime
 
 # variable for time format
 
+change_directory = input("Type the path to your directory: ")
+
 # changes the working directory to Notes in icloud
-# os.chdir('/Users/aduckworth/icloud/Notes')
+os.chdir(change_directory)
 
 # user input to define variables for tags
 begin_tag = input("What is the beginning tag? > ")
