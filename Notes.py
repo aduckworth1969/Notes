@@ -1,7 +1,9 @@
 import os
-from datetime import datetime
+from datetime import date
 
 # variable for time format
+today = date.today()
+date_append = today.strftime("%Y%m%d")
 
 change_directory = input("Type the path to your directory: ")
 
@@ -25,7 +27,7 @@ file_to_save = input("What do you want to call the save file? > ")
 # pulls text out of the file as a variable
 # my_file_contents = read_file.read()
 
-with open(file_to_open) as infile, open(file_to_save, 'w') as outfile:
+with open(file_to_open) as infile, open(file_to_save + date_append + ".md", 'w') as outfile:
     copy = False
     for line in infile:
         if line.strip() == begin_tag:
