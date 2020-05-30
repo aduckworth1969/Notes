@@ -1,14 +1,20 @@
 import os
 from datetime import date
 
-def file_process():
 # variable for time format
-	today = date.today()
-	date_append = today.strftime("%Y%m%d")
+today = date.today()
+date_append = today.strftime("%Y%m%d")
 
-	change_directory = input("Type the path to your directory: ")
+# set directory
+current_dir = os.getcwd()
+change_directory = input("Type the path to your directory: ")
 
-# changes the working directory to Notes in icloud
+# user input to define variable for file to open
+file_to_open = input("What file do you want to open? > ")
+
+def file_process():
+
+# changes the working directory to user selection
 	os.chdir(change_directory)
 
 # user input to define variables for tags
@@ -16,17 +22,8 @@ def file_process():
 	con_tag = "E"
 	end_tag = con_tag + begin_tag
 
-# user input to define variable for file to open
-	file_to_open = input("What file do you want to open? > ")
-
 # user input to define variable for file to save
 	file_to_save = input("What do you want to call the save file? > ")
-
-# reads the file that was identified via the variable from user input
-# read_file = open(file_to_open, 'r')
-
-# pulls text out of the file as a variable
-# my_file_contents = read_file.read()
 
 # opens file for processing and saves file
 	with open(file_to_open) as infile, open(file_to_save + date_append + ".md", 'w') as outfile:
@@ -40,14 +37,13 @@ def file_process():
             			continue
        			elif copy:
             			outfile.write(line)
-
-file_process()
+	restart()
 
 def restart():
-# program code here...
 	restart = input("Do you have more tags to process? ")
 	if restart == "yes" or restart == "y":
 		file_process()
 	if restart == "n" or restart == "no":
 		print("Script terminating. Goodbye.")
-restart()
+
+file_process()
