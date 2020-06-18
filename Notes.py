@@ -13,13 +13,13 @@ def notes_menu():
     if menu_selection == "1":
         set_directory()
     elif menu_selection == "2":
-        print("You selected option 2")
+        add_tags()
     elif menu_selection == "3":
         print("You selected option 3")
     elif menu_selection == "4":
         exit(0)
     else:
-        print(os.getcwd())
+        print(tag_list)
 
 def set_directory():
     current_dir = os.getcwd()
@@ -32,15 +32,24 @@ def set_directory():
         new_directory = os.chdir(change_directory)
         notes_menu()
 
+def add_tags():
+    tag_file = open('taglist.txt', 'r')
+    tag_process = tag_file.readlines()
+    for element in tag_process:
+        tag_list.append(element.strip())
+    add_tags = input("Add tags? ")
+    if add_tags == "yes" or add_tags == "y":
+        new_tag = input("Tag name (start with *)> ")
+        tag_list.append(new_tag)
+        with open('taglist.txt', 'w') as write_tags:
+            for item in tag_list:
+                write_tags.write(item + "\n")
+        notes_menu()
+    elif add_tags == "no" or add_tags == "n":
+        notes_menu()
+
 def file_process():
-
     file_to_open = input("What file do you want to open? > ")
-# user input to define variables for tags
-    begin_tag = input("What is the beginning tag? > ")
-    con_tag = "E"
-    end_tag = con_tag + begin_tag
-
-# user input to define variable for file to save
     file_to_save = input("What do you want to call the save file? > ")
 
 # opens file for processing and saves file
@@ -68,5 +77,7 @@ def restart():
 # variable for time format
 today = date.today()
 date_append = today.strftime("%Y%m%d")
+
+tag_list = []
 
 notes_menu()
