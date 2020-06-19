@@ -5,17 +5,19 @@ from sys import exit
 
 # menu for application
 def notes_menu():
+    print("________________________")
     print("\n1. Set directory.\n")
     print("2. Add tags.\n")
     print("3. Process file.\n")
     print("4. Quit.\n")
+    print("________________________\n")
     menu_selection = input("Make selection:> ")
     if menu_selection == "1":
         set_directory()
     elif menu_selection == "2":
         add_tags()
     elif menu_selection == "3":
-        print("You selected option 3")
+        file_process()
     elif menu_selection == "4":
         exit(0)
     else:
@@ -33,8 +35,6 @@ def set_directory():
         notes_menu()
 
 def add_tags():
-    tag_file = open('taglist.txt', 'r')
-    tag_process = tag_file.readlines()
     for element in tag_process:
         tag_list.append(element.strip())
     add_tags = input("Add tags? ")
@@ -50,21 +50,27 @@ def add_tags():
 
 def file_process():
     file_to_open = input("What file do you want to open? > ")
-    file_to_save = input("What do you want to call the save file? > ")
 
 # opens file for processing and saves file
-    with open(file_to_open) as infile, open(file_to_save + date_append + ".md", 'w') as outfile:
-        copy = False
-        for line in infile:
-            if line.strip() == begin_tag:
-                copy = True
-                continue
-            elif line.strip() == end_tag:
-                copy = False
-                continue
-            elif copy:
-                outfile.write(line)
-            restart()
+    infile = open(file_to_open, 'r')
+    infile_read = infile.read()
+    line = infile_read.readlines()
+    for tag in tag_list:
+        print(f"current tag is {tag}")
+        file_to_save = input("What do you want to call the save file? > ")
+        outfile = open(file_to_save + date_append + ".md", 'w')
+    if line.strip() == tag:
+        outfile.write(line)
+#    elif line.strip() != tag:
+#        continue
+#            elif line.strip() == end_tag:
+#                copy = False
+#                continue
+#            elif copy:
+#               outfile.write(line)
+    else:
+        notes_menu()
+#            restart()
 
 def restart():
     restart = input("Do you have more tags to process? ")
@@ -79,5 +85,8 @@ today = date.today()
 date_append = today.strftime("%Y%m%d")
 
 tag_list = []
+
+tag_file = open('taglist.txt', 'r')
+tag_process = tag_file.readlines()
 
 notes_menu()

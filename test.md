@@ -1,4 +1,4 @@
-GRNT
+*grnt
 
 # This is a test to see how my program works
 
@@ -7,13 +7,13 @@ GRNT
 - I really hope this works
 - This is groovy
 
-EGRNT
+*grnt
 
-JoMun
+*jomun
 
 # Here is some more information
 
 - What is this?
 - What is that?
 
-EJoMun
+*jomun
