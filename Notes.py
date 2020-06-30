@@ -49,28 +49,30 @@ def add_tags():
         notes_menu()
 
 def file_process():
+# user input for tags
+    begin_tag = input("Start tag:> ")
+    con_tag = "E"
+    end_tag = con_tag + begin_tag
+
+# user input for file to open
     file_to_open = input("What file do you want to open? > ")
 
+# user input for file to save
+    file_to_save = input("Save file:> ")
+
 # opens file for processing and saves file
-    infile = open(file_to_open, 'r')
-    infile_read = infile.read()
-    line = infile_read.readlines()
-    for tag in tag_list:
-        print(f"current tag is {tag}")
-        file_to_save = input("What do you want to call the save file? > ")
-        outfile = open(file_to_save + date_append + ".md", 'w')
-    if line.strip() == tag:
-        outfile.write(line)
-#    elif line.strip() != tag:
-#        continue
-#            elif line.strip() == end_tag:
-#                copy = False
-#                continue
-#            elif copy:
-#               outfile.write(line)
-    else:
-        notes_menu()
-#            restart()
+    with open(file_to_open) as infile, open(file_to_save + date_append + ".md", 'w') as outfile:
+        copy = False
+        for line in infile:
+            if line.strip() == begin_tag:
+                copy = True
+                continue
+            elif line.strip() == end_tag:
+                copy = False
+                continue
+            elif copy:
+                outfile.write(line)
+    restart()
 
 def restart():
     restart = input("Do you have more tags to process? ")
@@ -78,7 +80,7 @@ def restart():
         file_process()
     if restart == "n" or restart == "no":
         print("Have a great day!. Goodbye.")
-        sys.exit()
+        notes_menu()
 
 # variable for time format
 today = date.today()

@@ -7,7 +7,7 @@ import os
 
 # function for file process into Notion. Follow the instructions at https://github.com/jamalex/notion-py#quickstart to setup Notion.py
 def file_process():
-	client = NotionClient(token_v2="1082148eb4f64df07b7e7e3abde9615282978abcbc0724769bf05548243e304164bf94bfd110c1646930be92239dc75c72bb61ff15f6888a0454958a983484ce5c3f52ea7048feaf3f5aa9025b47")
+	client = NotionClient(token_v2="InsertToken")
 	page = client.get_block(notion_page)
 
 	with open("test.md", "r", encoding="utf-8") as mdFile:
