@@ -106,7 +106,7 @@ def notion_upload():
     notion_page = input("Notion page URL:> ")
     file_upload = input("File:> ")
     file_title = input("Page title:> ")
-    client = NotionClient(token_v2="1082148eb4f64df07b7e7e3abde9615282978abcbc0724769bf05548243e304164bf94bfd110c1646930be92239dc75c72bb61ff15f6888a0454958a983484ce5c3f52ea7048feaf3f5aa9025b47")
+    client = NotionClient(token_v2="Insert Token")
     page = client.get_block(notion_page)
     with open(file_upload, 'r', encoding='utf-8') as mdfile:
         newPage = page.children.add_new(PageBlock, title=file_title)
