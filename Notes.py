@@ -123,7 +123,7 @@ def notion_upload():
         notion_upload()
     if new_upload == "no" or new_upload == "n":
         notes_menu()
-
+os.system('clear')
 # variable for time format
 today = date.today()
 date_append = today.strftime("%Y%m%d")
