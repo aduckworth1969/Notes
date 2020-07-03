@@ -23,7 +23,7 @@ def notes_menu():
     elif menu_selection == "2":
         add_tags()
     elif menu_selection == "3":
-        file_process()
+        set_file()
     elif menu_selection == "4":
         convert_word()
     elif menu_selection == "5":
@@ -58,11 +58,13 @@ def add_tags():
     elif add_tags == "no" or add_tags == "n":
         notes_menu()
 
-def file_process():
-
+def set_file():
+    global file_to_open
 # user input for file to open
     file_to_open = input("What file do you want to open? > ")
+    file_process()
 
+def file_process():
 # user input for tags
     begin_tag = input("Start tag:> ")
     con_tag = "E"
@@ -86,7 +88,7 @@ def file_process():
 
     restart = input("Do you have more tags to process? ")
     if restart == "yes" or restart == "y":
-        file_extract()
+        file_process()
     if restart == "n" or restart == "no":
         print("Have a great day!. Goodbye.")
         notes_menu()
