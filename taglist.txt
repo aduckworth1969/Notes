@@ -1,7 +1,5 @@
-*grnt
-*jomun
-*meetnote
-*meetprep
-*ideas
-*testing
-*boobies
+Grnt
+Jomun
+Meetnote
+Meetprep
+Ideas
