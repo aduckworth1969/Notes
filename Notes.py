@@ -69,11 +69,13 @@ def set_file():
 
 def file_process():
 # user input for tags
-    begin_tag = input("Start tag:> ")
+    title = 'Choose tag for processing:> '
+    begin_tag, index = pick(tag_list, title)
     con_tag = "E"
     end_tag = con_tag + begin_tag
 
 # user input for file to save
+    print(f"Selected tag is {begin_tag}")
     file_to_save = input("Save file:> ")
 
 # opens file for processing and saves file
