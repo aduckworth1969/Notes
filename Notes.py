@@ -6,6 +6,7 @@ import pypandoc
 from notion.client import NotionClient
 from md2notion.upload import upload
 from notion.block import PageBlock
+from pick import pick
 
 # menu for application
 def notes_menu():
@@ -60,8 +61,12 @@ def add_tags():
 
 def set_file():
     global file_to_open
+    directory_list = os.listdir()
+    title = 'Choose file for processing:> '
+    file_to_open, index = pick(directory_list, title)
+
 # user input for file to open
-    file_to_open = input("What file do you want to open? > ")
+#    file_to_open = input("What file do you want to open? > ")
     file_process()
 
 def file_process():
