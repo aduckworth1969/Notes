@@ -7,4 +7,4 @@ The Notes.py command line application allows the user to take a markdown file an
 Launch the program using python. Once the application loads the user will be presented with a selection menu.
 
 ![Notes.py Menu](/images/NotesAppMenu.png)
-Format: ![Notes.py menu]
+Format: ![Alt Text](Notes.py menu)
