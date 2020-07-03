@@ -32,7 +32,7 @@ def notes_menu():
     elif menu_selection == "6":
         exit(0)
     else:
-        exit(0)
+        print(tag_list)
 
 def set_directory():
     current_dir = os.getcwd()
@@ -46,8 +46,6 @@ def set_directory():
         notes_menu()
 
 def add_tags():
-    for element in tag_process:
-        tag_list.append(element.strip())
     add_tags = input("Add tags? ")
     if add_tags == "yes" or add_tags == "y":
         new_tag = input("Tag name (start with *)> ")
@@ -132,5 +130,6 @@ tag_list = []
 
 tag_file = open('taglist.txt', 'r')
 tag_process = tag_file.readlines()
-
+for element in tag_process:
+    tag_list.append(element.strip())
 notes_menu()
