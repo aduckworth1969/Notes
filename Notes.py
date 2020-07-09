@@ -26,7 +26,7 @@ def notes_menu():
     elif menu_selection == "3":
         set_file()
     elif menu_selection == "4":
-        convert_word()
+        set_file_word()
     elif menu_selection == "5":
         notion_upload()
     elif menu_selection == "6":
@@ -98,14 +98,21 @@ def file_process():
         print("Have a great day!. Goodbye.")
         notes_menu()
 
+def set_file_word():
+    global open_word_file
+    directory_list = os.listdir()
+    title = 'Choose file for processing:> '
+    open_word_file, index = pick(directory_list, title)
+
+    convert_word()
+
 def convert_word():
-    input_file = input("File to convert:> ")
     output_file = input("Save file:> ")
-    output = pypandoc.convert_file(input_file, 'docx', outputfile=output_file + date_append + ".docx")
+    output = pypandoc.convert_file(open_word_file, 'docx', outputfile=output_file + date_append + ".docx")
     assert output == ""
     more_files = input("Convert another file? ")
     if more_files == "yes" or more_files == "y":
-        convert_word()
+        set_file_word()
     if more_files == "no" or more_files == "n":
         notes_menu()
 
