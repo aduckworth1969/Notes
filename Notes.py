@@ -13,10 +13,11 @@ def notes_menu():
     print("________________________")
     print("\n1. Set directory.\n")
     print("2. Add tags.\n")
-    print("3. Process file.\n")
-    print("4. Convert markdown to Word.\n")
-    print("5. Upload to Notion.\n")
-    print("6. Quit.\n")
+    print("3. Add Notion page.\n")
+    print("4. Process file.\n")
+    print("5. Convert markdown to Word.\n")
+    print("6. Upload to Notion.\n")
+    print("7. Quit.\n")
     print("________________________\n")
     menu_selection = input("Make selection:> ")
     if menu_selection == "1":
@@ -24,12 +25,14 @@ def notes_menu():
     elif menu_selection == "2":
         add_tags()
     elif menu_selection == "3":
-        set_file()
+        add_notion_pages()
     elif menu_selection == "4":
-        set_file_word()
+        set_file()
     elif menu_selection == "5":
-        notion_upload()
+        set_file_word()
     elif menu_selection == "6":
+        set_file_notion()
+    elif menu_selection == "7":
         exit(0)
     else:
         print(tag_list)
@@ -48,13 +51,25 @@ def set_directory():
 def add_tags():
     add_tags = input("Add tags? ")
     if add_tags == "yes" or add_tags == "y":
-        new_tag = input("Tag name (start with *)> ")
+        new_tag = input("Tag name:> ")
         tag_list.append(new_tag)
         with open('taglist.txt', 'w') as write_tags:
             for item in tag_list:
                 write_tags.write(item + "\n")
         notes_menu()
     elif add_tags == "no" or add_tags == "n":
+        notes_menu()
+
+def add_notion_pages():
+    add_pages = input('Add Notion pages? ')
+    if add_pages == 'yes' or add_pages == 'y':
+        new_page = input('Notion page URL:> ')
+        notion_pages.append(new_page)
+        with open('notionpage.txt', 'w') as write_pages:
+            for item in notion_pages:
+                write_pages.write(item + '\n')
+            notes_menu()
+    elif add_pages == 'no' or add_pages == 'n':
         notes_menu()
 
 def set_file():
@@ -116,9 +131,16 @@ def convert_word():
     if more_files == "no" or more_files == "n":
         notes_menu()
 
+def set_file_notion():
+    global file_upload
+    directory_list = os.listdir()
+    title = 'Choose file to upload:> '
+    file_upload, index = pick(directory_list, title)
+    notion_upload()
+
 def notion_upload():
-    notion_page = input("Notion page URL:> ")
-    file_upload = input("File:> ")
+    notion_title = 'Choose Notion page:> ' 
+    notion_page, index = pick(notion_pages, notion_title)
     file_title = input("Page title:> ")
     client = NotionClient(token_v2="Insert Token")
     page = client.get_block(notion_page)
@@ -141,4 +163,12 @@ tag_file = open('taglist.txt', 'r')
 tag_process = tag_file.readlines()
 for element in tag_process:
     tag_list.append(element.strip())
+
+notion_pages = []
+
+notion_page_file = open('notionpage.txt', 'r')
+notion_page_process = notion_page_file.readlines()
+for element in notion_page_process:
+    notion_pages.append(element.strip())
+
 notes_menu()
