@@ -75,8 +75,9 @@ def add_notion_pages():
 def set_file():
     global file_to_open
     directory_list = os.listdir()
+    directory_files = [s for s in directory_list if s.endswith('.md')]
     title = 'Choose file for processing:> '
-    file_to_open, index = pick(directory_list, title)
+    file_to_open, index = pick(directory_files, title)
 
 # user input for file to open
 #    file_to_open = input("What file do you want to open? > ")
@@ -116,8 +117,9 @@ def file_process():
 def set_file_word():
     global open_word_file
     directory_list = os.listdir()
+    directory_files = [s for s in directory_list if s.endswith('.md')]
     title = 'Choose file for processing:> '
-    open_word_file, index = pick(directory_list, title)
+    open_word_file, index = pick(directory_files, title)
 
     convert_word()
 
@@ -134,8 +136,9 @@ def convert_word():
 def set_file_notion():
     global file_upload
     directory_list = os.listdir()
+    directory_files = [s for s in directory_list if s.endswith('.md')]
     title = 'Choose file to upload:> '
-    file_upload, index = pick(directory_list, title)
+    file_upload, index = pick(directory_files, title)
     notion_upload()
 
 def notion_upload():
