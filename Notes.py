@@ -49,16 +49,18 @@ def set_directory():
         notes_menu()
 
 def add_tags():
-    add_tags = input("Add tags? ")
-    if add_tags == "yes" or add_tags == "y":
-        new_tag = input("Tag name:> ")
-        tag_list.append(new_tag)
-        with open('taglist.txt', 'w') as write_tags:
-            for item in tag_list:
-                write_tags.write(item + "\n")
+    new_tag = input("Tag name:> ")
+    tag_list.append(new_tag)
+    with open('taglist.txt', 'w') as write_tags:
+        for item in tag_list:
+            write_tags.write(item + "\n")
+    more_tags = input("Add more tags?> ")
+    if more_tags == 'y' or more_tags == 'yes':
+        add_tags()
+    elif more_tags == 'n' or more_tags == 'no':
         notes_menu()
-    elif add_tags == "no" or add_tags == "n":
-        notes_menu()
+    else:
+        add_tags()
 
 def add_notion_pages():
     add_pages = input('Add Notion pages? ')
