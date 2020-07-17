@@ -125,7 +125,7 @@ def set_file_word():
 
 def convert_word():
     output_file = input("Save file:> ")
-    output = pypandoc.convert_file(open_word_file, 'docx', outputfile=output_file + date_append + ".docx")
+    output = pypandoc.convert_file(open_word_file, 'docx', outputfile=date_append + output_file + ".docx")
     assert output == ""
     more_files = input("Convert another file? ")
     if more_files == "yes" or more_files == "y":
