@@ -95,7 +95,7 @@ def file_process():
     file_to_save = input("Save file:> ")
 
 # opens file for processing and saves file
-    with open(file_to_open) as infile, open(file_to_save + date_append + ".md", 'w') as outfile:
+    with open(file_to_open) as infile, open(date_append + file_to_save + ".md", 'w') as outfile:
         copy = False
         for line in infile:
             if line.strip() == begin_tag:
@@ -145,7 +145,7 @@ def notion_upload():
     notion_title = 'Choose Notion page:> ' 
     notion_page, index = pick(notion_pages, notion_title)
     file_title = input("Page title:> ")
-    client = NotionClient(token_v2="Insert Token")
+    client = NotionClient(token_v2="InsertToken")
     page = client.get_block(notion_page)
     with open(file_upload, 'r', encoding='utf-8') as mdfile:
         newPage = page.children.add_new(PageBlock, title=file_title)
