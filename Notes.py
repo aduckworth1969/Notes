@@ -10,18 +10,19 @@ from pick import pick
 
 # menu for application
 def notes_menu():
-    print("________________________")
-    print("\n1. Set directory.\n")
-    print("2. Add tags.\n")
-    print("3. Add Notion page.\n")
-    print("4. Process file.\n")
-    print("5. Convert markdown to Word.\n")
-    print("6. Upload to Notion.\n")
-    print("7. Quit.\n")
-    print("________________________\n")
+    print('_' * 24)
+    print(f'\n1. Change directory?\n   (current directory is {current_dir})\n')
+    print('2. Add tags.\n')
+    print('3. Add Notion page.\n')
+    print('4. Process file.\n')
+    print('5. Convert markdown to Word.\n')
+    print('6. Upload to Notion.\n')
+    print('7. Quit.\n')
+    print('_' * 24, '\n')
     menu_selection = input("Make selection:> ")
     if menu_selection == "1":
-        set_directory()
+        change_directory = input("Type the path to your directory> ")
+        set_directory(change_directory)
     elif menu_selection == "2":
         add_tags()
     elif menu_selection == "3":
@@ -35,18 +36,11 @@ def notes_menu():
     elif menu_selection == "7":
         exit(0)
     else:
-        print(tag_list)
+        print(os.getcwd())
 
-def set_directory():
-    current_dir = os.getcwd()
-    print(f"Correct dir? {current_dir}")
-    directory_choose = input("y or n > ")
-    if directory_choose == "yes" or directory_choose == "y":
-        notes_menu()
-    if directory_choose == "no" or directory_choose == "n":
-        change_directory = input("Type the path to your directory: ")
-        new_directory = os.chdir(change_directory)
-        notes_menu()
+def set_directory(directory_name):
+    new_directory = os.chdir(directory_name)
+    notes_menu()
 
 def add_tags():
     new_tag = input("Tag name:> ")
@@ -157,6 +151,8 @@ def notion_upload():
         notion_upload()
     if new_upload == "no" or new_upload == "n":
         notes_menu()
+
+current_dir = os.getcwd()
 os.system('clear')
 # variable for time format
 today = date.today()
