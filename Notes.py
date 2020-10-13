@@ -8,10 +8,11 @@ from md2notion.upload import upload
 from notion.block import PageBlock
 from pick import pick
 
-# menu for application
+# Selection menu for application to choose directory, add tags, add Notion page, process a 
+# file, convert markdown to Word, upload to Notion or quit app.
 def notes_menu():
     print('_' * 24)
-    print(f'\n1. Change directory?\n   (current directory is {current_dir})\n')
+    print(f'\n1. Change directory?\n   (current directory is)\n' + os.getcwd())
     print('2. Add tags.\n')
     print('3. Add Notion page.\n')
     print('4. Process file.\n')
@@ -38,8 +39,9 @@ def notes_menu():
     else:
         print(os.getcwd())
 
+# This function sets the current to what the user selected for menu option 1.
 def set_directory(directory_name):
-    new_directory = os.chdir(directory_name)
+    os.chdir(directory_name)
     notes_menu()
 
 def add_tags():
@@ -145,14 +147,14 @@ def notion_upload():
     page = client.get_block(notion_page)
     with open(file_upload, 'r', encoding='utf-8') as mdfile:
         newPage = page.children.add_new(PageBlock, title=file_title)
-        upload(mdfile, newPage) # appends the converted contents fo markdown file to new page
+        # appends the converted contents of markdown file to new page
+        upload(mdfile, newPage) 
     new_upload = input("Upload new file?> ")
     if new_upload == "yes" or new_upload == "y":
         notion_upload()
     if new_upload == "no" or new_upload == "n":
         notes_menu()
 
-current_dir = os.getcwd()
 os.system('clear')
 # variable for time format
 today = date.today()
