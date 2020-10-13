@@ -22,7 +22,7 @@ def notes_menu():
     print('_' * 24, '\n')
     menu_selection = input("Make selection:> ")
     if menu_selection == "1":
-        change_directory = input("Type the path to your directory> ")
+        change_directory = input("Type the path to your directory: ")
         set_directory(change_directory)
     elif menu_selection == "2":
         add_tags()
@@ -71,7 +71,6 @@ def add_notion_pages():
         notes_menu()
 
 def set_file():
-    global file_to_open
     directory_list = os.listdir()
     directory_files = [s for s in directory_list if s.endswith('.md')]
     title = 'Choose file for processing:> '
@@ -79,9 +78,9 @@ def set_file():
 
 # user input for file to open
 #    file_to_open = input("What file do you want to open? > ")
-    file_process()
+    file_process(file_to_open)
 
-def file_process():
+def file_process(openFile):
 # user input for tags
     title = 'Choose tag for processing:> '
     begin_tag, index = pick(tag_list, title)
@@ -93,7 +92,7 @@ def file_process():
     file_to_save = input("Save file:> ")
 
 # opens file for processing and saves file
-    with open(file_to_open) as infile, open(file_to_save + date_append + ".md", 'w') as outfile:
+    with open(openFile) as infile, open(file_to_save + date_append + ".md", 'w') as outfile:
         copy = False
         for line in infile:
             if line.strip() == begin_tag:
