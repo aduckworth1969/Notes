@@ -71,8 +71,7 @@ def add_notion_pages():
         notes_menu()
 
 def set_file():
-    directory_list = os.listdir()
-    directory_files = [s for s in directory_list if s.endswith('.md')]
+    directory_files = [s for s in os.listdir() if s.endswith('.md')]
     title = 'Choose file for processing:> '
     file_to_open, index = pick(directory_files, title)
 
@@ -81,6 +80,7 @@ def set_file():
     file_process(file_to_open)
 
 def file_process(openFile):
+    openFile = openFile
 # user input for tags
     title = 'Choose tag for processing:> '
     begin_tag, index = pick(tag_list, title)
@@ -92,11 +92,7 @@ def file_process(openFile):
     file_to_save = input("Save file:> ")
 
 # opens file for processing and saves file
-<<<<<<< HEAD
-    with open(file_to_open) as infile, open(date_append + file_to_save + ".md", 'w') as outfile:
-=======
     with open(openFile) as infile, open(file_to_save + date_append + ".md", 'w') as outfile:
->>>>>>> dev
         copy = False
         for line in infile:
             if line.strip() == begin_tag:
@@ -110,7 +106,7 @@ def file_process(openFile):
 
     restart = input("Do you have more tags to process? ")
     if restart == "yes" or restart == "y":
-        file_process()
+        file_process(openFile)
     if restart == "n" or restart == "no":
         print("Have a great day!. Goodbye.")
         notes_menu()
