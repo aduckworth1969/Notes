@@ -112,17 +112,16 @@ def file_process(openFile):
         notes_menu()
 
 def set_file_word():
-    global open_word_file
     directory_list = os.listdir()
     directory_files = [s for s in directory_list if s.endswith('.md')]
     title = 'Choose file for processing:> '
     open_word_file, index = pick(directory_files, title)
 
-    convert_word()
+    convert_word(open_word_file)
 
-def convert_word():
+def convert_word(wordFile):
     output_file = input("Save file:> ")
-    output = pypandoc.convert_file(open_word_file, 'docx', outputfile=date_append + output_file + ".docx")
+    output = pypandoc.convert_file(wordFile, 'docx', outputfile=date_append + output_file + ".docx")
     assert output == ""
     more_files = input("Convert another file? ")
     if more_files == "yes" or more_files == "y":
@@ -136,15 +135,15 @@ def set_file_notion():
     directory_files = [s for s in directory_list if s.endswith('.md')]
     title = 'Choose file to upload:> '
     file_upload, index = pick(directory_files, title)
-    notion_upload()
+    notion_upload(file_upload)
 
-def notion_upload():
+def notion_upload(uploadFile):
     notion_title = 'Choose Notion page:> ' 
     notion_page, index = pick(notion_pages, notion_title)
     file_title = input("Page title:> ")
     client = NotionClient(token_v2="InsertToken")
     page = client.get_block(notion_page)
-    with open(file_upload, 'r', encoding='utf-8') as mdfile:
+    with open(uploadFile, 'r', encoding='utf-8') as mdfile:
         newPage = page.children.add_new(PageBlock, title=file_title)
         # appends the converted contents of markdown file to new page
         upload(mdfile, newPage) 
