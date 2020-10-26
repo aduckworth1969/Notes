@@ -7,37 +7,55 @@ from notion.client import NotionClient
 from md2notion.upload import upload
 from notion.block import PageBlock
 from pick import pick
+import csv
+import json
 
 # Selection menu for application to choose directory, add tags, add Notion page, process a 
 # file, convert markdown to Word, upload to Notion or quit app.
 def notes_menu():
     print('_' * 24)
-    print(f'\n1. Change directory?\n   (current directory is)\n' + os.getcwd())
-    print('2. Add tags.\n')
-    print('3. Add Notion page.\n')
-    print('4. Process file.\n')
-    print('5. Convert markdown to Word.\n')
-    print('6. Upload to Notion.\n')
-    print('7. Quit.\n')
+    print('\n1. Import directory information\n')
+    print(f'2. Change directory?\n   (current directory is)' + os.getcwd() + '\n')
+    print('3. Add tags.\n')
+    print('4. Add Notion page.\n')
+    print('5. Process file.\n')
+    print('6. Convert markdown to Word.\n')
+    print('7. Upload to Notion.\n')
+    print('8. Quit.\n')
     print('_' * 24, '\n')
     menu_selection = input("Make selection:> ")
-    if menu_selection == "1":
+    if menu_selection == '1':
+        directoryInformationImport()
+    elif menu_selection == '2':
         change_directory = input("Type the path to your directory: ")
         set_directory(change_directory)
-    elif menu_selection == "2":
+    elif menu_selection == '3':
         add_tags()
-    elif menu_selection == "3":
+    elif menu_selection == '4':
         add_notion_pages()
-    elif menu_selection == "4":
+    elif menu_selection == '5':
         set_file()
-    elif menu_selection == "5":
+    elif menu_selection == '6':
         set_file_word()
-    elif menu_selection == "6":
+    elif menu_selection == '7':
         set_file_notion()
-    elif menu_selection == "7":
+    elif menu_selection == '8':
         exit(0)
     else:
         print(os.getcwd())
+
+def directoryInformationImport():
+    dirList = [s for s in os.listdir() if s.endswith('.csv')]
+    title = 'Select .csv file with site names and log locations: '
+    selected, index = pick(dirList, title)
+    with open(selected, 'r') as csvFile:
+        siteFile = csv.reader(csvFile)
+        # next(siteFile)
+        for line in siteFile:
+            siteInformation = dict((k[0], k[1]) for k in siteFile)
+        with open('directoryFile.json', 'w') as siteDictionary:
+            json.dump(siteInformation, siteDictionary)
+    notes_menu()
 
 # This function sets the current to what the user selected for menu option 1.
 def set_directory(directory_name):
