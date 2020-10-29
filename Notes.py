@@ -27,8 +27,16 @@ def notes_menu():
     if menu_selection == '1':
         directoryInformationImport()
     elif menu_selection == '2':
-        change_directory = input("Type the path to your directory: ")
-        set_directory(change_directory)
+        siteList = []
+        with open('directoryFile.json', 'r') as siteInformation:
+            siteDictionary = json.load(siteInformation)
+            for key in siteDictionary:
+                siteList.append(key)
+        title = 'Choose directory: '
+        selected, index = pick(siteList, title)
+        filePath = siteDictionary[selected]
+        pickPath = os.chdir(filePath)
+        notes_menu()
     elif menu_selection == '3':
         add_tags()
     elif menu_selection == '4':
@@ -46,7 +54,7 @@ def notes_menu():
 
 def directoryInformationImport():
     dirList = [s for s in os.listdir() if s.endswith('.csv')]
-    title = 'Select .csv file with site names and log locations: '
+    title = 'Select .csv file with directory locations: '
     selected, index = pick(dirList, title)
     with open(selected, 'r') as csvFile:
         siteFile = csv.reader(csvFile)
@@ -58,9 +66,9 @@ def directoryInformationImport():
     notes_menu()
 
 # This function sets the current to what the user selected for menu option 1.
-def set_directory(directory_name):
-    os.chdir(directory_name)
-    notes_menu()
+# def set_directory(directory_name):
+#     os.chdir(directory_name)
+#     notes_menu()
 
 def add_tags():
     new_tag = input("Tag name:> ")
